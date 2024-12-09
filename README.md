@@ -138,7 +138,7 @@ Um aplicativo de gerenciamento de tarefas desenvolvido em Flutter para a Web, co
 2. Clone este repositório:
 
    ```bash
-   git clone https://github.com/ysrial/web_flutter_todo.git
+   git clone https://github.com/Ysrial/web_flutter_todo.git
 
    ```
 
