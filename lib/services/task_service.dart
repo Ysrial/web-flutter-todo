@@ -28,9 +28,7 @@ class TaskService {
 
   Future<void> deleteTask(String id) async {
     try {
-      final tasks = await loadTasks();
-      final updatedTasks = tasks.where((task) => task.id != id).toList();
-      await saveTasks(updatedTasks);
+      await storage.deleteTask(id, _storageKey);
     } catch (e) {
       print("Erro ao excluir tarefa: $e");
     }
