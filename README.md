@@ -56,7 +56,7 @@ Um aplicativo de gerenciamento de tarefas desenvolvido em Flutter para a Web e M
 
 4. **Marcar como Concluída**
 
-   - Permitir que o usuário marque ou desmarque uma tarefa como concluída usando um botão ou checkbox.
+   - Permitir que o usuário marque ou desmarque uma tarefa como concluída usando um checkbox.
    - Alterar o estilo da tarefa concluída, como adicionar um texto riscado.
 
 5. **Persistência de Dados**
