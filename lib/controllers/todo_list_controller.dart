@@ -8,30 +8,26 @@ class TodoListController extends ChangeNotifier {
 
   TodoListController({required this.taskService});
 
-  // Carrega as tarefas da base de dados ou armazenamento
   Future<void> loadTasks() async {
     tasks = await taskService.loadTasks();
-    notifyListeners(); // Notifica que o estado foi alterado
+    notifyListeners(); 
   }
 
-  // Adiciona uma nova tarefa
   Future<void> addTask(Task task) async {
     tasks.add(task);
-    await taskService.saveTasks(tasks); // Salva as tarefas atualizadas
+    await taskService.saveTasks(tasks);
     notifyListeners();
   }
 
-  // Remove uma tarefa
   Future<void> removeTask(String taskId) async {
     tasks.removeWhere((task) => task.id == taskId);
     await taskService.deleteTask(taskId);
     notifyListeners();
   }
 
-  // Alterna o status de concluído de uma tarefa
   Future<void> toggleTaskStatus(int index) async {
     tasks[index].done = !tasks[index].done;
-    await taskService.saveTasks(tasks); // Salva a tarefa com o status alterado
+    await taskService.saveTasks(tasks);
     notifyListeners();
   }
 }

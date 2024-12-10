@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         home: Consumer<TaskService>(
           builder: (context, taskService, child) {
             return TodoListPage(
-                taskService: taskService); // Passando o taskService aqui
+                taskService: taskService); 
           },
         ),
       ),

@@ -27,9 +27,7 @@ class TodoListPage extends StatelessWidget {
         id: Uuid().v4(),
         title: newTaskTitle,
       );
-      context
-          .read<TodoListController>()
-          .addTask(newTask); // Usando o controller para adicionar
+      context.read<TodoListController>().addTask(newTask);
     }
   }
 
@@ -39,12 +37,12 @@ class TodoListPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Todo List'),
         centerTitle: true,
+        backgroundColor: Colors.teal,
       ),
       body: Consumer<TodoListController>(
         builder: (context, controller, child) {
-          // Carregar as tarefas quando o controlador for inicializado
           if (controller.tasks.isEmpty) {
-            controller.loadTasks(); // Certifique-se de carregar as tarefas
+            controller.loadTasks();
           }
 
           return controller.tasks.isEmpty
@@ -54,12 +52,19 @@ class TodoListPage extends StatelessWidget {
                     children: [
                       const Text(
                         'Nenhuma tarefa cadastrada!',
-                        style: TextStyle(fontSize: 18),
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(height: 16),
                       ElevatedButton(
                         onPressed: () => _navigateToAddTask(context),
                         child: const Text('Adicionar Nova Tarefa'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color.fromARGB(255, 224, 226, 226),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 12),
+                          textStyle: const TextStyle(fontSize: 16),
+                        ),
                       ),
                     ],
                   ),
@@ -68,61 +73,70 @@ class TodoListPage extends StatelessWidget {
                   itemCount: controller.tasks.length,
                   itemBuilder: (context, index) {
                     final task = controller.tasks[index];
-                    return ListTile(
-                      title: Text(
-                        task.title,
-                        style: TextStyle(
-                          decoration: task.done
-                              ? TextDecoration.lineThrough
-                              : TextDecoration.none,
-                        ),
+                    return Card(
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 8, horizontal: 16),
+                      elevation: 5,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
                       ),
-                      leading: Checkbox(
-                        value: task.done,
-                        onChanged: (value) {
-                          if (value != null && value != task.done) {
-                            // Muda o estado da tarefa apenas se houver mudança
-                            controller.toggleTaskStatus(index);
-
-                            // Verifica se a tarefa foi marcada como concluída e se a mensagem já foi mostrada
-                            if (value && !task.done) {
-                              // Exibe SnackBar somente se a tarefa foi concluída pela primeira vez
+                      child: ListTile(
+                        title: Text(
+                          task.title,
+                          style: TextStyle(
+                            decoration: task.done
+                                ? TextDecoration.lineThrough
+                                : TextDecoration.none,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        leading: Checkbox(
+                          value: task.done,
+                          onChanged: (value) {
+                            if (value != null && value != task.done) {
+                              controller.toggleTaskStatus(index);
                               ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content:
-                                      Text('Tarefa marcada como concluída!'),
-                                  duration: Duration(seconds: 2),
+                                SnackBar(
+                                  content: Text(
+                                    value
+                                        ? 'Tarefa marcada como concluída!'
+                                        : 'Tarefa desmarcada!',
+                                  ),
+                                  duration: const Duration(seconds: 2),
+                                  backgroundColor: Colors.green[
+                                      300],
                                 ),
                               );
                             }
-                          }
-                        },
-                      ),
-                      trailing: IconButton(
-                        icon: const Icon(Icons.delete, color: Colors.red),
-                        onPressed: () {
-                          controller.removeTask(task.id);
-                          // Exibe SnackBar quando a tarefa for deletada
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Tarefa removida com sucesso!'),
-                              duration: Duration(seconds: 2),
-                            ),
-                          );
-                        },
+                          },
+                        ),
+                        trailing: IconButton(
+                          icon: const Icon(Icons.delete, color: Colors.red),
+                          onPressed: () {
+                            controller.removeTask(task.id);
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Tarefa removida com sucesso!'),
+                                duration: Duration(seconds: 2),
+                                backgroundColor:
+                                    Colors.red,
+                              ),
+                            );
+                          },
+                        ),
                       ),
                     );
                   },
                 );
         },
       ),
-      // O botão de adicionar aparece apenas quando houver tarefas
       floatingActionButton: context.watch<TodoListController>().tasks.isNotEmpty
           ? FloatingActionButton(
               onPressed: () => _navigateToAddTask(context),
               child: const Icon(Icons.add),
+              backgroundColor: Colors.teal,
             )
-          : null, // O botão de adicionar é ocultado quando não houver tarefas
+          : null,
     );
   }
 }

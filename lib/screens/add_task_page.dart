@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:web_flutter_todo/controllers/add_task_controller.dart';
 
 class AddTaskPage extends StatefulWidget {
   @override
@@ -6,67 +8,76 @@ class AddTaskPage extends StatefulWidget {
 }
 
 class _AddTaskPageState extends State<AddTaskPage> {
-  final TextEditingController taskController = TextEditingController();
-  bool _isButtonDisabled = false;
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final controller = Provider.of<AddTaskController>(context, listen: false);
+      controller.taskController.clear(); 
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    final controller = Provider.of<AddTaskController>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Adicionar Tarefa'),
+        backgroundColor: Colors.teal,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
             TextField(
-              controller: taskController,
-              decoration: const InputDecoration(
+              controller: controller.taskController,
+              onChanged: controller.onTextChanged,
+              decoration: InputDecoration(
                 labelText: 'Título da Tarefa',
-                border: OutlineInputBorder(),
+                labelStyle: TextStyle(color: Colors.teal),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.teal, width: 2),
+                  borderRadius: BorderRadius.circular(12),
+                ),
               ),
             ),
             const SizedBox(height: 16),
             ElevatedButton(
-              onPressed: _isButtonDisabled
+              onPressed: controller.isButtonDisabled
                   ? null
                   : () {
-                      final taskText = taskController.text.trim();
-
-                      // Verifica se o título da tarefa não é vazio
+                      final taskText = controller.getTaskTitle();
                       if (taskText.isNotEmpty) {
                         Navigator.pop(context, taskText);
-                        // Exibe um SnackBar após adicionar a tarefa
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                             content: Text('Tarefa adicionada com sucesso!'),
                             duration: Duration(seconds: 2),
+                            backgroundColor: Colors.green,
                           ),
                         );
                       } else {
-                        // Mostra um SnackBar se o título for vazio
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                             content: Text(
                                 'Por favor, insira um título para a tarefa.'),
                             duration: Duration(seconds: 2),
+                            backgroundColor: Colors.red,
                           ),
                         );
-
-                        // Desabilita o botão após o clique
-                        setState(() {
-                          _isButtonDisabled = true;
-                        });
-
-                        // Reabilita o botão após um pequeno atraso
-                        Future.delayed(const Duration(seconds: 2), () {
-                          setState(() {
-                            _isButtonDisabled = false;
-                          });
-                        });
                       }
                     },
               child: const Text('Salvar'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
+                textStyle: const TextStyle(fontSize: 16),
+              ),
             ),
           ],
         ),
