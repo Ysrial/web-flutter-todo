@@ -102,9 +102,9 @@ Um aplicativo de gerenciamento de tarefas desenvolvido em Flutter para a Web e M
 
 ### Bibliotecas Utilizadas
 
-- **shared_preferences** (v^2.0.15): Biblioteca para persistência de dados localmente.
-- **uuid** (v^3.0.6): Geração de identificadores únicos universais.
-- **provider** (v^6.0.5): Gerenciador de estado.
+- **shared_preferences**: Biblioteca para persistência de dados localmente.
+- **uuid**: Geração de identificadores únicos universais.
+- **provider**: Gerenciador de estado.
 
 ## Possíveis Melhorias e Implementações
 
