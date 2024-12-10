@@ -2,7 +2,7 @@
 
 ## Descrição do Projeto
 
-Um aplicativo de gerenciamento de tarefas desenvolvido em Flutter para a Web e mobile, com persistência local de dados usando `SharedPreferences`. O projeto demonstra funcionalidades essenciais como adicionar, excluir e marcar tarefas como concluídas.
+Um aplicativo de gerenciamento de tarefas desenvolvido em Flutter para a Web e Mobile, com persistência local de dados usando `SharedPreferences`. O projeto demonstra funcionalidades essenciais como adicionar, excluir e marcar tarefas como concluídas.
 
 ## Funcionalidades
 
