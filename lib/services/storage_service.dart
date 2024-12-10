@@ -30,4 +30,15 @@ class StorageService implements StorageServiceInterface {
       print("Erro ao salvar tarefas: $e");
     }
   }
+
+  @override
+  Future<void> deleteTask(String id, String key) async {
+    try {
+      final tasks = await loadTasks(key);
+      final updatedTasks = tasks.where((task) => task['id'] != id).toList();
+      await saveTasks(updatedTasks, key);
+    } catch (e) {
+      print("Erro ao excluir tarefa: $e");
+    }
+  }
 }
