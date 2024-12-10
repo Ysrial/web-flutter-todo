@@ -31,8 +31,7 @@ dependencies:
   flutter:
     sdk: flutter
   # flutter_web_local_storage: ^1.0.0
-  shared_preferences: ^2.0.18
-  get_it: ^7.2.0
+  shared_preferences: ^2.0.15
   uuid: ^3.0.6
   provider: ^6.0.5
 

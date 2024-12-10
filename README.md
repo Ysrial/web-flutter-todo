@@ -2,7 +2,7 @@
 
 ## Descrição do Projeto
 
-Um aplicativo de gerenciamento de tarefas desenvolvido em Flutter para a Web, com persistência local de dados usando `SharedPreferences`. O projeto demonstra funcionalidades essenciais como adicionar, excluir e marcar tarefas como concluídas.
+Um aplicativo de gerenciamento de tarefas desenvolvido em Flutter para a Web e Mobile, com persistência local de dados usando `SharedPreferences`. O projeto demonstra funcionalidades essenciais como adicionar, excluir e marcar tarefas como concluídas.
 
 ## Funcionalidades
 
@@ -23,7 +23,7 @@ Um aplicativo de gerenciamento de tarefas desenvolvido em Flutter para a Web, co
 ### Marcar como Concluída
 
 - Checkbox interativo que permite marcar ou desmarcar uma tarefa como concluída.
-- Tarefas concluídas têm seu estilo alterado (ex.: texto riscado ou cinza).
+- Tarefas concluídas têm seu estilo alterado.
 
 ### Persistência de Dados
 
@@ -57,15 +57,14 @@ Um aplicativo de gerenciamento de tarefas desenvolvido em Flutter para a Web, co
 4. **Marcar como Concluída**
 
    - Permitir que o usuário marque ou desmarque uma tarefa como concluída usando um botão ou checkbox.
-   - Alterar o estilo da tarefa concluída, como adicionar um texto riscado ou mudar a cor do texto.
+   - Alterar o estilo da tarefa concluída, como adicionar um texto riscado.
 
 5. **Persistência de Dados**
 
-   - Usar `SharedPreferences` para salvar a lista de tarefas localmente no dispositivo.
    - Garantir que as tarefas persistam após o fechamento e reabertura do aplicativo.
 
 6. **Validação**
-   - Impedir que o usuário adicione tarefas vazias, exibindo uma mensagem ou desabilitando o botão de adicionar caso o campo esteja vazio.
+   - Impedir que o usuário adicione tarefas vazias.
 
 ### Requisitos Não Funcionais
 
@@ -76,11 +75,11 @@ Um aplicativo de gerenciamento de tarefas desenvolvido em Flutter para a Web, co
 2. **Usabilidade**
 
    - A interface deve ser simples e fácil de usar, com uma navegação intuitiva.
-   - O design da aplicação deve ser responsivo, ajustando-se a diferentes tamanhos de tela (ex.: dispositivos móveis e tablets).
+   - O design da aplicação deve ser responsivo, ajustando-se a diferentes tamanhos de tela.
 
 3. **Escalabilidade**
 
-   - O sistema deve ser capaz de lidar com um número crescente de tarefas sem comprometer a performance (embora o foco inicial seja um número limitado de tarefas).
+   - O sistema deve ser capaz de lidar com um número crescente de tarefas sem comprometer a performance.
 
 4. **Manutenibilidade**
 
@@ -88,16 +87,24 @@ Um aplicativo de gerenciamento de tarefas desenvolvido em Flutter para a Web, co
 
 5. **Compatibilidade**
 
-   - O sistema deve ser compatível com os navegadores modernos mais utilizados (ex.: Google Chrome, Firefox, Safari, Microsoft Edge).
+   - O sistema deve ser compatível com navegadores modernos mais utilizados (ex.: Google Chrome, Firefox, Safari, Microsoft Edge).
+   - O aplicativo deve funcionar em dispositivos móveis e tablets com sistemas operacionais Android.
 
 6. **Segurança**
-   - Os dados (tarefas) devem ser armazenados localmente usando `SharedPreferences`. Embora o `SharedPreferences` não seja o meio mais seguro para armazenamento de dados, ele foi escolhido devido a problemas de compatibilidade com a SDK do Java, garantindo o funcionamento da aplicação no navegador. Para ambientes de produção, deve-se considerar alternativas mais seguras, como armazenamento criptografado ou integração com APIs seguras de backend.
+   - Os dados (tarefas) devem ser armazenados localmente usando `SharedPreferences`.
 
 ## Tecnologias Utilizadas
 
+### Frameworks e Linguagens
+
 - **Flutter**: Framework para desenvolvimento multiplataforma.
 - **Dart**: Linguagem de programação utilizada no desenvolvimento.
-- **SharedPreferences**: Biblioteca para persistência de dados localmente.
+
+### Bibliotecas Utilizadas
+
+- **shared_preferences** (v^2.0.15): Biblioteca para persistência de dados localmente.
+- **uuid** (v^3.0.6): Geração de identificadores únicos universais.
+- **provider** (v^6.0.5): Gerenciador de estado.
 
 ## Possíveis Melhorias e Implementações
 
@@ -139,24 +146,26 @@ Um aplicativo de gerenciamento de tarefas desenvolvido em Flutter para a Web, co
 
    ```bash
    git clone https://github.com/Ysrial/web_flutter_todo.git
-
    ```
 
 3. Navegue até o diretório do projeto:
 
    ```bash
    cd web_flutter_todo
-
    ```
 
 4. Instale as dependências do projeto:
 
    ```bash
    flutter pub get
-
    ```
 
-5. Execute o aplicativo:
+5. Execute o aplicativo na Web:
    ```bash
    flutter run -d chrome
+   ```
+   
+5. Execute o aplicativo no Android:
+   ```bash
+   flutter run
    ```
